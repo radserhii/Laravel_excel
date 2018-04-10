@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use File;
 use Excel;
 
@@ -39,12 +41,11 @@ class DocumentController extends Controller
                         ];
                     }
 
-                    dd($insert);
-
                     if(!empty($insert)){
 
-                        $insertData = DB::table('students')->insert($insert);
-                        if ($insertData) {
+                        $insert = DB::table('documents')->insert($insert);
+
+                        if ($insert) {
                             Session::flash('success', 'Your Data has successfully imported');
                         }else {
                             Session::flash('error', 'Error inserting the data..');

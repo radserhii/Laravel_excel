@@ -14,6 +14,18 @@
             </div>
         @endif
 
+        {{--Session success/error--}}
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         {{--Imports form--}}
         <div class="col-sm-4">
             <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">

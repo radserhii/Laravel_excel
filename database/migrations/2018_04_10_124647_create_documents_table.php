@@ -21,7 +21,6 @@ class CreateDocumentsTable extends Migration
             $table->integer('birth_year');
             $table->string('position');
             $table->string('salary');
-            $table->timestamps();
         });
     }
 
