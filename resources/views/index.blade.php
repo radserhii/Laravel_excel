@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
 
-       {{--Errors--}}
+        {{--Errors--}}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -26,14 +26,21 @@
             </div>
         @endif
 
-        {{--Imports form--}}
-        <div class="col-sm-4">
-            <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <label for="import">Import xls file:</label>
-                <input type="file" name="file" id="import" class="form-control">
-                <input type="submit" class="btn btn-primary btn-lg" value="Import">
-            </form>
+        <div class="row">
+            {{--Imports form--}}
+            <div class="col-sm-6">
+                <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <p>Import xls/xlsx file to DB:</p>
+                    <input type="file" name="file" id="import">
+                    <br><br>
+                    <input type="submit" class="btn btn-success" value="Import">
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <p>Export xls/xlsx file from DB:</p>
+                <a href="{{ route('export') }}" class="btn btn-warning">Export</a>
+            </div>
         </div>
     </div>
 @endsection

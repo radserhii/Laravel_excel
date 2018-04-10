@@ -12,7 +12,10 @@
 */
 
 Route::get('/', 'DocumentController@index')->name('index');
+
 Route::post('import', 'DocumentController@import')->name('import');
+Route::get('export', 'DocumentController@export')->name('export');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
