@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', 'DocumentController@index')->name('index');
+Route::post('import', 'ImportController@import')->name('import');
+Route::get('export', 'ExportController@export')->name('export');
 
-Route::post('import', 'DocumentController@import')->name('import');
-Route::get('export', 'DocumentController@export')->name('export');
+Route::resource('/', 'DocumentController')->only(['index']);
 
 Auth::routes();
 

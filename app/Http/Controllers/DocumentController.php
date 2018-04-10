@@ -2,94 +2,83 @@
 
 namespace App\Http\Controllers;
 
-use App\Document;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
-use File;
-use Excel;
 
 class DocumentController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        return view('index');
+        //
     }
 
-    public function import(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        $this->validate($request, array(
-            'file' => 'required'
-        ));
-
-        if ($request->hasFile('file')) {
-
-            $extension = File::extension($request->file->getClientOriginalName());
-            if ($extension == "xlsx" || $extension == "xls") {
-
-                $path = $request->file->getRealPath();
-                $data = Excel::load($path, function ($reader) {
-                })->get();
-                if (!empty($data) && $data->count()) {
-
-                    foreach ($data as $key => $value) {
-
-                        $insert[] = [
-                            'first_name' => trim($value->famimliya),
-                            'last_name' => trim($value->imya),
-                            'patronymic' => trim($value->otchestvo),
-                            'birth_year' => trim($value->god_rozhdeniya),
-                            'position' => trim($value->dolzhnost),
-                            'salary' => trim($value->zp_v_god)
-                        ];
-                    }
-
-                    if (!empty($insert)) {
-
-                        $insert = DB::table('documents')->insert($insert);
-
-                        if ($insert) {
-                            Session::flash('success', 'Your Data has successfully imported');
-                        } else {
-                            Session::flash('error', 'Error inserting the data..');
-                            return back();
-                        }
-                    }
-                }
-
-                return back();
-
-            } else {
-                Session::flash('error', 'File is a ' . $extension . ' file.!! Please upload a valid xls file..!!');
-                return back();
-            }
-        }
-
+        //
     }
 
-    public function export()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-        $document = Document::all();
+        //
+    }
 
-        $documentArray = [];
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
-        //add header
-        $documentArray[] = ['Фамимлия', 'Имя', 'Отчество', 'Год. рождения', 'Должность', 'Зп в год.'];
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
-        foreach ($document as $value) {
-            $valueArray = $value->toArray();
-            array_shift($valueArray);
-            $documentArray[] = $valueArray;
-        }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
 
-        Excel::create('document', function($excel) use ($documentArray) {
-
-            $excel->setTitle('Document');
-
-            $excel->sheet('sheet1', function($sheet) use ($documentArray) {
-                $sheet->fromArray($documentArray, null, 'A1', false, false);
-            });
-
-        })->download('xlsx');
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }
