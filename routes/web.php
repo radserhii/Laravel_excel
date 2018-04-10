@@ -14,7 +14,12 @@
 Route::post('import', 'ImportController@import')->name('import');
 Route::get('export', 'ExportController@export')->name('export');
 
-Route::resource('/', 'DocumentController')->only(['index']);
+Route::get('/', 'DocumentController@index')->name('index');
+
+Route::get('edit/{id}', 'DocumentController@edit')->name('edit');
+Route::post('update/{id}', 'DocumentController@update')->name('update');
+
+Route::get('destroy/{id}', 'DocumentController@destroy')->name('destroy');
 
 Auth::routes();
 

@@ -42,5 +42,43 @@
                 <a href="{{ route('export') }}" class="btn btn-warning">Export</a>
             </div>
         </div>
+
+        <br><br>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Patronymic</th>
+                <th scope="col">Year of birth</th>
+                <th scope="col">Position</th>
+                <th scope="col">Salary</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($document as $value)
+                <tr>
+                    <th scope="row">{{$loop->iteration}}</th>
+                    <td>{{$value->first_name}}</td>
+                    <td>{{$value->last_name}}</td>
+                    <td>{{$value->patronymic}}</td>
+                    <td>{{$value->birth_year}}</td>
+                    <td>{{$value->position}}</td>
+                    <td>{{$value->salary}}</td>
+                    <td>
+                        <a href="{{route('edit', ['id' => $value->id])}}" class="btn btn-primary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{{route('destroy', ['id' => $value->id])}}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            @endforeach
+
+            </tbody>
+        </table>
+
     </div>
 @endsection

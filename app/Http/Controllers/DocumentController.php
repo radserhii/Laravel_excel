@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Document;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class DocumentController extends Controller
 {
@@ -13,7 +16,8 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        $document = Document::all();
+        return view('index', ['document' => $document]);
     }
 
     /**
@@ -49,36 +53,40 @@ class DocumentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Show the form for editing the row.
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        $row = Document::find($id);
+        return view('update', ['row' => $row]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update the row in db
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        Document::find($id)->update($request->all());
+        Session::flash('success', 'Successfully updated!');
+        return Redirect::to('/');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Remove the row from db.
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $row = Document::find($id);
+        $row->delete();
+
+        Session::flash('success', 'Successfully deleted!');
+        return Redirect::to('/');
     }
 }
