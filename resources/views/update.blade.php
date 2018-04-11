@@ -53,7 +53,7 @@
                            id="salary"
                            value="{{$row->salary}}">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>
     </div>

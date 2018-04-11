@@ -15,12 +15,9 @@ Route::post('import', 'ImportController@import')->name('import');
 Route::get('export', 'ExportController@export')->name('export');
 
 Route::get('/', 'DocumentController@index')->name('index');
-
+Route::post('store', 'DocumentController@store')->name('store');
 Route::get('edit/{id}', 'DocumentController@edit')->name('edit');
 Route::post('update/{id}', 'DocumentController@update')->name('update');
-
 Route::get('destroy/{id}', 'DocumentController@destroy')->name('destroy');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
